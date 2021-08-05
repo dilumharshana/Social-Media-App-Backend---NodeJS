@@ -1,34 +1,9 @@
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
+const express = require('express');
 
+const app = express();
 
-http.createServer( (req,res) => {
-    
-    const file = path.join(__dirname,"public", `${ req.url === "/" ? "index" : req.url}.html`)
+app.listen(8000);
 
-    fs.readFile( file , (err,content) => {
-        if(!err){
-            res.writeHead(200 , {'File-Type':'text/html'})
-            res.end(content)
-        }
-
-        if(err){
-            if(err.code == 'ENOENT'){
-                fs.readFile( path.join(__dirname , "public/404.html") , (err , content) => {
-                    if(!err){
-                        res.end(content)
-                    }
-
-                    if(err){
-                        res.end("404");
-                    }
-                })
-            }
-        }
-
-        
-    })
-}).listen(8000 , () => {
-    console.log(`server started at PORT NO ${process.env.PORT}`);
-})
+app.use('/customers' , require('./routes/api/members'));
+app.use(express.json())
+app.use(express.urlencoded({extended:false}));
