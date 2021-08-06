@@ -1,12 +1,12 @@
 const router = require("express").Router();
 
 //user model
-const user = require("../../models/users/userModel.js");
+const user = require("../../models/users/usersModel.js");
 
 router.post("/register", async (req, res) => {
   try {
     const newUser = await new user({
-      userName: "dilum harshana",
+      userName: "jhon",
       email: "dilum.harshana123@gmail.com",
       password: "papapapa",
     });
@@ -14,6 +14,7 @@ router.post("/register", async (req, res) => {
     await newUser.save();
     res.json("done");
   } catch (err) {
+    console.log(err);
     res.send(err);
   }
 });

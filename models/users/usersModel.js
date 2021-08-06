@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const databse = require("../../connection/dbConnection");
 
 const user = new mongoose.Schema(
   {
@@ -42,4 +43,4 @@ const user = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = user;
+module.exports = mongoose.model("userModel", user);
