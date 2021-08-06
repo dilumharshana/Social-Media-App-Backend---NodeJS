@@ -4,7 +4,7 @@
   "description": "simple social media web api",
   "main": "index.js",
   "scripts": {
-   "start":"nodemon index"
+    "start": "nodemon index"
   },
   "repository": {
     "type": "git",

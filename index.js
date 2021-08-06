@@ -1,15 +1,9 @@
-const express = require('express');
+const express = require("express");
+const dotenv = require("dotenv");
 
 const app = express();
 
-app.listen(8000);
+const PORT = process.env.PORT || 7000;
+app.listen(PORT);
 
-app.use(express.json());
-app.use(express.urlencoded({extended:false}));
-
-
-app.use('/customers' , require('./routes/api/members'));
-
-
-
-
+app.use("/users", require("./routes/users/users"));
