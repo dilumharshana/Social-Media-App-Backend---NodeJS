@@ -14,17 +14,58 @@ router.get('/:name' , (req,res) => {
     res.json(customer);
 })
 
-//create member
+//create new customer
+
 router.post('/' , (req,res) => {
 
-    const customer = {
-        'name':req.body.name,
-        'email':req.body.email,
-        'phone':req.body.phone
+    console.log(req.body);
+
+    const nCustomer = {
+        name:req.body.name,
+        email:req.body.email,
+        phone:req.body.phone,
+        
     }
 
-    const customern = customers.push(customer);
-    res.send(customern);
+    customers.push(nCustomer);
+    res.send(customers);
+});
+
+router.put('/:id' , (req,res) => {
+
+    const update = req.body;
+
+    const found = customers.some( member => member.name === req.params.id);
+
+    if(found){
+        let editCoustomer = customers.filter( member => member.name === req.params.id)
+        let nCustomers = customers.filter( member => member.name != req.params.id);
+
+        editCoustomer[0].name = update.name;
+        editCoustomer[0].email = update.email;
+        editCoustomer[0].phone = update.phone;
+
+        nCustomers.push(editCoustomer[0]);
+        console.log(editCoustomer);
+
+        return res.json(nCustomers);
+    }
+
+    res.send('no customer for for name');
 })
 
+
+// deleting customer
+
+router.delete( '/:id' , (req,res) => {
+    
+    const found = customers.some( member => member.name === req.params.id);
+
+    if(found){
+        const nCustomers = customers.filter( member => member.name !== req.params.id);
+       return  res.json(nCustomers)
+    }
+
+    return res.send('no customer found');
+})
 module.exports = router;
