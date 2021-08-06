@@ -1,17 +1,7 @@
-const express = require("express");
 const router = require("express").Router();
 
-// //configs()
+const getAllUsers = require("./getAllUsers");
 
-express().use(selectApi);
-
-function selectApi(req, res, next) {
-  console.log("heloo nodejs");
-  next();
-}
-
-router.get("/", (req, res) => {
-  //   console.log(req.originalUrl);
-});
+router.get("/", (req, res) => getAllUsers(req, res));
 
 module.exports = router;
