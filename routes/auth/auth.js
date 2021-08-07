@@ -1,22 +1,14 @@
 const router = require("express").Router();
 
-//user model
-const user = require("../../models/users/usersModel.js");
+//for body-parser
+router.use(require("express").json());
 
-router.post("/register", async (req, res) => {
-  try {
-    const newUser = await new user({
-      userName: "jhon",
-      email: "dilum.harshana123@gmail.com",
-      password: "papapapa",
-    });
+const registerUser = require("./modules/registerUser");
+const login = require("./modules/login");
 
-    await newUser.save();
-    res.json("done");
-  } catch (err) {
-    console.log(err);
-    res.send(err);
-  }
-});
+//select API
+
+router.post("/register", (req, res) => registerUser(req, res)); // => register new users
+router.post("/login", (req, res) => login(req, res)); // => login
 
 module.exports = router;

@@ -2,6 +2,8 @@ const router = require("express").Router();
 
 const getAllUsers = require("./getAllUsers");
 
-router.get("/", (req, res) => getAllUsers(req, res));
+// select API
+
+router.get("/", (req, res) => getAllUsers(req, res)); // => get all the users
 
 module.exports = router;
