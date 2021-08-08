@@ -11,17 +11,17 @@ const user = require("../../../models/users/usersModel.js");
 
 const registerUser = async (req, res) => {
   try {
-    const { name, email, pass } = req.body;
+    const { name, email, password } = req.body;
 
     //hashing thr pass
     const salt = await bcrypt.genSalt(5);
-    const hasedPassword = await bcrypt.hash(pass, salt);
+    const hasedPassword = await bcrypt.hash(password, salt);
 
     //creating user model
     const newUser = await new user({
       userName: name,
-      email: email,
-      password: hasedPassword,
+      email,
+      password,
     });
 
     //save user

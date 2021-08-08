@@ -11,13 +11,23 @@ const user = require("../../../models/users/usersModel");
 const login = async (req, res) => {
   const { email, password } = req.body;
 
-  const findUser = await user.findOne({ email: email });
-  !findUser && res.status(400).json("invalid username");
+  try {
+    //cheking availability
+    !email && res.status(404).json("enter user name");
+    !password && res.status(404).json("enter password");
 
-  const checkPassword = await bcrypt.compare(password, findUser.password);
-  console.log(checkPassword);
-  !checkPassword && res.status(400).json("incorrect password");
+    //cheking email
+    const findUser = await user.findOne({ email: email });
+    !findUser && res.status(400).json("invalid username");
 
-  res.status(200).json(`welcome ${findUser.userName}`);
+    //cheking password
+    const checkPassword = await bcrypt.compare(password, findUser.password);
+    !checkPassword && res.status(400).json("incorrect password");
+
+    res.status(200).json(`welcome ${findUser.userName}`);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
+
 module.exports = login;
